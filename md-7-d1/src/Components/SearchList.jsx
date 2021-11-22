@@ -4,16 +4,14 @@ export default function SearchList() {
 	const [jobList, setJobList] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
-	const fetch = async () => {
+	const getjobs = async () => {
 		try {
 			let resp = await fetch(
-				'https://strive-jobs-api.herokuapp.com/jobs?limit=1',
+				'https://strive-jobs-api.herokuapp.com/jobs?limit=5',
 			);
 			if (resp.ok) {
-				let data = await resp.json();
-				setJobList(data);
-				setIsLoading(false);
-				console.log(jobList);
+				const res = await resp.json();
+				return res.data;
 			}
 		} catch (error) {
 			console.log(error);
@@ -21,12 +19,16 @@ export default function SearchList() {
 	};
 
 	useEffect(() => {
-		fetch();
+		getjobs().then((data) => {
+			setJobList(data);
+			setIsLoading(false);
+		});
 	}, []);
+	console.log(jobList);
 
 	return (
 		<>
-			{isLoading &&
+			{!isLoading &&
 				jobList.map((job) => {
 					<Card style={{ width: '18rem' }}>
 						<Card.Body>
