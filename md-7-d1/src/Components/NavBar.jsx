@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Navbar, Button, Form, FormControl } from 'react-bootstrap';
-
 export default function NavBar() {
 	const [searchVal, setSearchVal] = useState('');
 
@@ -11,6 +10,7 @@ export default function NavBar() {
 			</Navbar.Brand>
 			<Form inline className="searchContainer">
 				<FormControl
+					className="mr-sm-4"
 					type="text"
 					placeholder="Search"
 					onChange={(e) => {
