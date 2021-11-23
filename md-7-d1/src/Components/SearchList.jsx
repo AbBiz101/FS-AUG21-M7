@@ -28,7 +28,7 @@ export default function SearchList({ job }) {
 		<>
 			{!isLoading &&
 				jobList.map((job) => (
-					<Card className="search-list">
+					<Card key={job._id} className="search-list">
 						<Card.Body>
 							<Card.Title> Title - {job.title}</Card.Title>
 							<Card.Text>Job Type - {job.job_type}</Card.Text>

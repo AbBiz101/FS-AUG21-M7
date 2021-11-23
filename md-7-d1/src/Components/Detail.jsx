@@ -3,7 +3,7 @@ import { Card, Button } from 'react-bootstrap';
 export default function Detail() {
 	return (
 		<Card className="text-center">
-			<Card.Header>Featured</Card.Header>
+			<Card.Header>Job Title</Card.Header>
 			<Card.Body>
 				<Card.Title>Special title treatment</Card.Title>
 				<Card.Text>

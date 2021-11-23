@@ -3,6 +3,7 @@
 	flex-direction: row;
 	justify-content: space-around;
 }
+
 .mr-sm-4 {
 	min-width: 500px !important;
 }
@@ -11,20 +12,21 @@
 	margin: 10px 10px 10px 10px;
 	width: 400px;
 }
+.big-container {
+	display: flex;
+	background-color: rgb(158, 158, 158);
+	flex-direction: row;
+	justify-content: space-around;
+}
 
-/* 
 .searchContainer {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 }
 
-
-
-
-
 .text-center {
 	align-items: center;
 	width: 100%;
 	margin: 10px 10px 10px 10px;
-} */
+}
