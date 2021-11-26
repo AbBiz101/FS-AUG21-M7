@@ -1,3 +1,3 @@
-export const buycake = () => {
+export const buyCake = () => {
 	return { type: 'BUY_CAKE' };
 };

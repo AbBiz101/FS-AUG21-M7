@@ -1,4 +1,3 @@
-//import { buycake } from './cakeAction';
 const initialState = { numOfCake: 20 };
 
 export const cakeReducer = (state = initialState, action) => {
