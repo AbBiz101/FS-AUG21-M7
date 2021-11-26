@@ -21,7 +21,6 @@ function buyicecream() {
 	};
 }
 //-------------------------------single reducer--------------------------------------
-
 //this is the reducer. it is possible to use single reducer in one app but is is better to use multiple reducers, in that case ew have to define the initial states separately as well
 // const initialState = { numOfCake: 10, numOfIceCreams: 20 }; // this is the initial state
 // const reducer = (state = initialState, action) => {
@@ -42,7 +41,6 @@ function buyicecream() {
 // );
 
 //-------------------------------multiple reducers--------------------------------------
-
 const initialCakes = { numOfCake: 10 };
 const initialIceCreams = { numOfIceCreams: 20 };
 
