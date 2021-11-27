@@ -6,7 +6,7 @@ function CakeContainer(props) {
 	return (
 		<div>
 			<h2>Number Of Cakes - {props.numOfCake}</h2>
-			<button onClick={props.buyCake}>Buy Cake </button>
+			<button onClick={props.buy_Cake}>Buy Cake </button>
 		</div>
 	);
 }
@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchTOProps = (dispatch) => {
 	return {
-		buyCake: () => dispatch(buyCake()),
+		buy_Cake: () => dispatch(buyCake()),
 	};
 };
 
