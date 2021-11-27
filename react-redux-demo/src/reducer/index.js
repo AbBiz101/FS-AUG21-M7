@@ -16,7 +16,7 @@ const mainReducer = (state, action) => {
 				...state,
 				cart: {
 					...state.cart,
-					content: state.cart.content.filter((i) => i !== action.payload),
+					content: state.cart.content.filter((e, i) => i !== action.payload),
 				},
 			};
 		default:

@@ -2,21 +2,18 @@ import { connect } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { removeFromCart } from '../action/index';
 
 const mapStateToProps = (state) => ({
 	cart: state.cart.content,
-	cartLength: state.cart.content.length,
 });
 const mapDispatchToProps = (dispatch) => ({
 	removeFromCart: (bookToRemove) => {
-		dispatch({
-			type: 'REMOVE_BOOK_FROM_CART',
-			payload: bookToRemove,
-		});
+		dispatch(removeFromCart(bookToRemove));
 	},
 });
 
-const Cart = ({ cartLength, cart, removeFromCart }) => (
+const Cart = ({ cart, removeFromCart }) => (
 	<Row>
 		<Col sm={12}>
 			<ul style={{ listStyle: 'none' }}>
@@ -44,7 +41,8 @@ const Cart = ({ cartLength, cart, removeFromCart }) => (
 			<Col sm={12} className="font-weight-bold">
 				TOTAL:
 				{cart.reduce(
-					(acc, currentValue) => acc + parseFloat(currentValue.price),0
+					(acc, currentValue) => acc + parseFloat(currentValue.price),
+					0,
 				)}
 			</Col>
 		</Row>

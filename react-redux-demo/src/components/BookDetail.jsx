@@ -2,13 +2,11 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { addToCar } from '../action/index';
 
 const mapDispatchToProps = (dispatch) => ({
 	addToCart: (bookToAdd) => {
-		dispatch({
-			type: 'ADD_TO_CART',
-			payload: bookToAdd,
-		});
+		dispatch(addToCar(bookToAdd));
 	},
 });
 
