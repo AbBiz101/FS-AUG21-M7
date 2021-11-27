@@ -1,36 +1,54 @@
-import Button from "react-bootstrap/Button";
-import { FaTrash } from "react-icons/fa";
-import { Col, Row } from "react-bootstrap";
+import { connect } from 'react-redux';
+import { FaTrash } from 'react-icons/fa';
+import { Col, Row } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
-const Cart = ({ cart = [] }) => (
-  <Row>
-    <Col sm={12}>
-      <ul style={{ listStyle: "none" }}>
-        {cart.map((book, i) => (
-          <li key={i} className="my-4">
-            <Button variant="danger" onClick={() => {}}>
-              <FaTrash />
-            </Button>
-            <img
-              className="book-cover-small"
-              src={book.imageUrl}
-              alt="book selected"
-            />
-            {book.title}
-          </li>
-        ))}
-      </ul>
-    </Col>
-    <Row>
-      <Col sm={12} className="font-weight-bold">
-        TOTAL:{" "}
-        {cart.reduce(
-          (acc, currentValue) => acc + parseFloat(currentValue.price),
-          0
-        )}
-      </Col>
-    </Row>
-  </Row>
+const mapStateToProps = (state) => ({
+	cart: state.cart.content,
+	cartLength: state.cart.content.length,
+});
+const mapDispatchToProps = (dispatch) => ({
+	removeFromCart: (bookToRemove) => {
+		dispatch({
+			type: 'REMOVE_BOOK_FROM_CART',
+			payload: bookToRemove,
+		});
+	},
+});
+
+const Cart = ({ cartLength, cart, removeFromCart }) => (
+	<Row>
+		<Col sm={12}>
+			<ul style={{ listStyle: 'none' }}>
+				{cart.map((book, i) => (
+					<li key={i} className="my-4">
+						<Button
+							variant="danger"
+							onClick={() => {
+								removeFromCart(i);
+							}}
+						>
+							<FaTrash />
+						</Button>
+						<img
+							className="book-cover-small"
+							src={book.imageUrl}
+							alt="book selected"
+						/>
+						{book.title}
+					</li>
+				))}
+			</ul>
+		</Col>
+		<Row>
+			<Col sm={12} className="font-weight-bold">
+				TOTAL:
+				{cart.reduce(
+					(acc, currentValue) => acc + parseFloat(currentValue.price),0
+				)}
+			</Col>
+		</Row>
+	</Row>
 );
 
-export default Cart;
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

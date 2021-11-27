@@ -3,10 +3,22 @@ const mainReducer = (state, action) => {
 	console.log(action);
 
 	switch (action.type) {
-		case 'INCREASE':
-			return { ... state, count: state.count + 1 };
-		case 'DECREASE':
-			return { ...state, count: state.count - 1 };
+		case 'ADD_TO_CART':
+			return {
+				...state,
+				cart: {
+					...state.cart,
+					content: [...state.cart.content, action.payload],
+				},
+			};
+		case 'REMOVE_BOOK_FROM_CART':
+			return {
+				...state,
+				cart: {
+					...state.cart,
+					content: state.cart.content.filter((i) => i !== action.payload),
+				},
+			};
 		default:
 			return state;
 	}

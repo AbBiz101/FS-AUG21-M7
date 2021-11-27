@@ -6,7 +6,6 @@ import { FaShoppingCart } from 'react-icons/fa';
 const mapStateToProps = (state) => ({
 	cartLength: state.cart.content.length,
 });
-const mapDispatchToProps = (dispatch) => {};
 
 const CartIndicator = ({ cartLength }) => {
 	const navigate = useNavigate();
@@ -20,4 +19,4 @@ const CartIndicator = ({ cartLength }) => {
 	);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartIndicator);
+export default connect(mapStateToProps)(CartIndicator);
