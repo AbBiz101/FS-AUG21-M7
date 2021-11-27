@@ -2,7 +2,8 @@ import { createStore } from 'redux';
 import mainReducer from '../reducer/index';
 
 export const initialState = {
-	count: 10,
+	cart: { content: [] },
+	user: {},
 	error: '',
 	product: [],
 	loading: false,
