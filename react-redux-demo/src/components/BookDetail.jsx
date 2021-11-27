@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 class BookDetail extends Component {
   state = {
     book: null,
+    
   };
 
   componentDidUpdate(prevProps) {

@@ -1,19 +1,28 @@
 import './App.css';
-import { connect } from 'react-redux';
+import Cart from './components/Cart';
+import BookStore from './components/BookStore';
+import { Col, Container, Row } from 'react-bootstrap';
+import CartIndicator from './components/CartIndicator';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-const mapStateToProps = (state) => state;
+const App = () => (
+	<BrowserRouter>
+		<Container>
+			<Row>
+				<Col sm={12} className="text-center background-div">
+					<Link to="/">
+						<h1>Strivazon Book Store</h1>
+					</Link>
+				</Col>
+				<CartIndicator />
+			</Row>
+			<hr />
+			<Routes>
+				<Route path="/" element={<BookStore />} />
+				<Route path="/cart" element={<Cart />} />
+			</Routes>
+		</Container>
+	</BrowserRouter>
+);
 
-const mapDispatchToProps = (dispatch) => ({
-	increase: () => {
-		dispatch({ type: 'INCREASE' });
-	},
-	decrease: () => {
-		dispatch({ type: 'DECREASE' });
-	},
-});
-
-function App(props) {
-	return <div className="App"></div>;
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
