@@ -1,5 +1,6 @@
-import { createStore } from 'redux';
-import mainReducer from '../reducer/index';
+import { createStore, combineReducers } from 'redux';
+import cartReducer from '../reducer/cart';
+import userReducer from '../reducer/user';
 
 export const initialState = {
 	cart: { content: [] },
@@ -12,10 +13,14 @@ export const initialState = {
 	loading: false,
 };
 
+const bigReducer = combineReducers({
+	cart: cartReducer,
+	user: userReducer,
+});
+
 const configStore = createStore(
-	mainReducer,
+	bigReducer,
 	initialState,
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
-
 export default configStore;
