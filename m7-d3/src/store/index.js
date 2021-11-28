@@ -6,6 +6,7 @@ export const initialState = {
 	user: {
 		name: '',
 	},
+	
 };
 
 const configStore = createStore(
