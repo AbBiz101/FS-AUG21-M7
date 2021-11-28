@@ -1,5 +1,6 @@
 import { initialState } from '../store/';
-const mainReducer = (state = initialState.cart, action) => {
+
+const cartReducer = (state = initialState.cart, action) => {
 	switch (action.type) {
 		case 'ADD_TO_CART':
 			return {
@@ -16,4 +17,4 @@ const mainReducer = (state = initialState.cart, action) => {
 	}
 };
 
-export default mainReducer;
+export default cartReducer;

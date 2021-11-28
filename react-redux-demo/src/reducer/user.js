@@ -1,5 +1,6 @@
 import { initialState } from '../store/';
-const mainReducer = (state = initialState.user, action) => {
+
+const userReducer = (state = initialState.user, action) => {
 	switch (action.type) {
 		case 'ADD_USER_NAME':
 			return {
@@ -10,5 +11,4 @@ const mainReducer = (state = initialState.user, action) => {
 			return state;
 	}
 };
-
-export default mainReducer;
+export default userReducer;

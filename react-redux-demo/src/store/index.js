@@ -1,12 +1,16 @@
-import { createStore, combineReducers } from 'redux';
 import cartReducer from '../reducer/cart';
 import userReducer from '../reducer/user';
+import booksReducer from '../reducer/books';
+import { createStore, combineReducers } from 'redux';
 
 export const initialState = {
 	cart: { content: [] },
 	user: {
 		name: '',
 		isLoading: false,
+	},
+	books: {
+		stock:[]
 	},
 	error: '',
 	product: [],
@@ -16,6 +20,7 @@ export const initialState = {
 const bigReducer = combineReducers({
 	cart: cartReducer,
 	user: userReducer,
+	books: booksReducer,
 });
 
 const configStore = createStore(
