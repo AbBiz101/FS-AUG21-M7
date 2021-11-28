@@ -22,7 +22,7 @@ export default function App() {
 
 			if (resp.ok) {
 				const res = await resp.json();
-				console.log('INSIDE RESP.OK submithandler')
+				console.log('INSIDE RESP.OK submithandler');
 				setJobList(res.data);
 				setIsLoading(false);
 			} else {
@@ -41,7 +41,6 @@ export default function App() {
 
 			if (resp.ok) {
 				const res = await resp.json();
-				console.log('INSIDE RESP.OK getJob');
 				setJobList(res.data);
 				setIsLoading(false);
 			} else {
