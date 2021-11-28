@@ -10,13 +10,21 @@ const mainReducer = (state, action) => {
 					...state.cart,
 					content: [...state.cart.content, action.payload],
 				},
-			};
+			}; 
 		case 'REMOVE_BOOK_FROM_CART':
 			return {
 				...state,
 				cart: {
 					...state.cart,
 					content: state.cart.content.filter((e, i) => i !== action.payload),
+				},
+			};
+		case 'ADD_USER_NAME':
+			return {
+				...state,
+				user: {
+					...state.user,
+					name: action.payload,
 				},
 			};
 		default:

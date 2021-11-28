@@ -6,9 +6,10 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Row, Button, Navbar, Col, Form, FormControl } from 'react-bootstrap';
 
 export default function App() {
-	const [jobList, setJobList] = useState([]);
-	const [searchVal, setSearchVal] = useState('');
-	const [isLoading, setIsLoading] = useState(true);
+	const [jobList, setJobList] = useState([]); // hold all jobs
+	const [searchVal, setSearchVal] = useState(''); //hold search input value
+	const [isLoading, setIsLoading] = useState(true); // hold load state
+	const [selectedJob, setSelectedJob] = useState(null); // job selected to display details
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
@@ -21,6 +22,7 @@ export default function App() {
 
 			if (resp.ok) {
 				const res = await resp.json();
+				console.log('INSIDE RESP.OK submithandler')
 				setJobList(res.data);
 				setIsLoading(false);
 			} else {
@@ -39,6 +41,7 @@ export default function App() {
 
 			if (resp.ok) {
 				const res = await resp.json();
+				console.log('INSIDE RESP.OK getJob');
 				setJobList(res.data);
 				setIsLoading(false);
 			} else {
@@ -67,7 +70,7 @@ export default function App() {
 								className="mr-sm-4"
 								type="text"
 								placeholder="Search"
-								onSubmit={(e) => {
+								onChange={(e) => {
 									setSearchVal(e.target.value);
 								}}
 							/>
@@ -77,7 +80,18 @@ export default function App() {
 				</Col>
 			</Row>
 			<Routes>
-				<Route exact path="/" element={<AllContents jobs={jobList} />} />
+				<Route
+					exact
+					path="/"
+					element={
+						<AllContents
+							jobList={jobList}
+							selectedJob={selectedJob}
+							setSelectedJob={setSelectedJob}
+							selectedJob={selectedJob}
+						/>
+					}
+				/>
 				<Route path="/users" element={<User />} />
 			</Routes>
 		</BrowserRouter>
