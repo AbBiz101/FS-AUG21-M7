@@ -1,48 +1,52 @@
-import { Component } from 'react';
 import BookList from './BookList';
+import { Component } from 'react';
 import BookDetail from './BookDetail';
+import { connect } from 'react-redux';
+import { getAllBooks } from '../action';
 import { Col, Row } from 'react-bootstrap';
+
+const mapStateToProps = (state) => ({
+	bookInStock: state.books.stock,
+	bookError: state.books.isError,
+});
+const mapDispatchToProps = (dispatch) => ({
+	fetchBooks: () => {
+		dispatch(getAllBooks());
+	},
+});
 
 class BookStore extends Component {
 	state = {
-		books: [],
 		bookSelected: null,
 	};
-
 	componentDidMount = async () => {
-		try {
-			let resp = await fetch(
-				'https://striveschool-api.herokuapp.com/food-books',
-			);
-			if (resp.ok) {
-				let books = await resp.json();
-				this.setState({books});
-			} else {
-				console.log('error');
-			}
-		} catch (error) {
-			console.log(error);
-		}
+		this.props.fetchBooks();
 	};
-
 	changeBook = (book) => this.setState({ bookSelected: book });
 
 	render() {
 		return (
 			<Row>
-				<Col md={4}>
-					<BookList
-						bookSelected={this.state.bookSelected}
-						changeBook={this.changeBook}
-						books={this.state.books}
-					/>
-				</Col>
-				<Col md={8}>
-					<BookDetail bookSelected={this.state.bookSelected} />
-				</Col>
+				{this.props.bookError ? (
+					<div>ERROR WHILE FETCHING</div>
+				) : (
+					<>
+						<Col md={4}>
+							<BookList
+								changeBook={this.changeBook}
+								books={this.props.bookInStock}
+								bookSelected={this.state.bookSelected}
+							/>
+						</Col>
+
+						<Col md={8}>
+							<BookDetail bookSelected={this.state.bookSelected} />
+						</Col>
+					</>
+				)}
 			</Row>
 		);
 	}
 }
 
-export default BookStore;
+export default connect(mapStateToProps, mapDispatchToProps)(BookStore);
