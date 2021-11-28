@@ -4,6 +4,9 @@ import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { addToCar } from '../action/index';
 
+const mapStateToProps = (state) => ({
+	userName: state.user.name,
+});
 const mapDispatchToProps = (dispatch) => ({
 	addToCart: (bookToAdd) => {
 		dispatch(addToCar(bookToAdd));
@@ -52,12 +55,16 @@ class BookDetail extends Component {
 									<span className="font-weight-bold">Price:</span>
 									{this.state.book.price}
 								</p>
-								<Button
-									color="primary"
-									onClick={() => this.props.addToCart(this.state.book)}
-								>
-									ADD TO CART
-								</Button>
+								{this.props.userName ? (
+									<Button
+										color="primary"
+										onClick={() => this.props.addToCart(this.state.book)}
+									>
+										ADD TO CART
+									</Button>
+								) : (
+									<h4>Log in to add to cart!</h4>
+								)}
 							</Col>
 						</Row>
 					</>
@@ -73,4 +80,4 @@ class BookDetail extends Component {
 	}
 }
 
-export default connect((s) => {}, mapDispatchToProps)(BookDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(BookDetail);

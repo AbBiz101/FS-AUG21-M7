@@ -1,84 +1,85 @@
 import './App.css';
-import Detail from './Components/Detail';
+import User from './Components/User';
 import { useState, useEffect } from 'react';
-import SearchList from './Components/SearchList';
-import { Button, Navbar, Card, Form, FormControl } from 'react-bootstrap';
+import AllContents from './Components/AllContents';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { Row, Button, Navbar, Col, Form, FormControl } from 'react-bootstrap';
 
 export default function App() {
-	const [searchVal, setSearchVal] = useState('');
 	const [jobList, setJobList] = useState([]);
+	const [searchVal, setSearchVal] = useState('');
 	const [isLoading, setIsLoading] = useState(true);
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
+		try {
+			let resp = await fetch(
+				'https://strive-jobs-api.herokuapp.com/jobs?search=' +
+					`${searchVal}` +
+					'&limit=5',
+			);
 
-		let resp = await fetch(
-			'https://strive-jobs-api.herokuapp.com/jobs?search=' +
-				`${searchVal}` +
-				'&limit=5',
-		);
-
-		if (resp.ok) {
-			const res = await resp.json();
-			setJobList(res.data);
-			setIsLoading(false);
-		} else {
-			console.log('error fetching');
+			if (resp.ok) {
+				const res = await resp.json();
+				setJobList(res.data);
+				setIsLoading(false);
+			} else {
+				console.log('error fetching');
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
-	console.log(searchVal);
-	console.log(jobList);
+	const getJob = async (e) => {
+		try {
+			let resp = await fetch(
+				'https://strive-jobs-api.herokuapp.com/jobs?limit=10&skip=10',
+			);
+
+			if (resp.ok) {
+				const res = await resp.json();
+				setJobList(res.data);
+				setIsLoading(false);
+			} else {
+				console.log('error fetching');
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	console.log(isLoading, jobList);
+
+	useEffect(() => {
+		getJob();
+	}, []);
 
 	return (
-		<>
-			<div className="App">
-				<Navbar className="navbrContainer" bg="dark" variant="dark">
-					<Navbar.Brand className="" href="#home">
-						Search for JOB
-					</Navbar.Brand>
-					<Form inline className="searchContainer" onSubmit={submitHandler}>
-						<FormControl
-							className="mr-sm-4"
-							type="text"
-							placeholder="Search"
-							onChange={(e) => {
-								setSearchVal(e.target.value);
-							}}
-						/>
-						<Button type="submit">Submit</Button>
-					</Form>
-				</Navbar>
-
-				<div className="big-container">
-					<div>
-						{!isLoading &&
-							jobList.map((job) => (
-								<Card key={job._id} className="search-list">
-									<Card.Body>
-										<Card.Title> Title - {job.title}</Card.Title>
-										<Card.Text>Job Type - {job.job_type}</Card.Text>
-										<Card.Text>Category - {job.category}</Card.Text>
-										<Card.Text>
-											Location - {job.candidate_required_location}
-										</Card.Text>
-										<Card.Text>
-											Publication Date - {job.publication_date}
-										</Card.Text>
-										<Card.Link href="https://remotive.io/remote-jobs/all-others/technical-delivery-manager-890461">
-											Company Name - {job.company_name}
-										</Card.Link>
-									</Card.Body>
-								</Card>
-							))}
-
-						<SearchList />
-					</div>
-
-					<Detail />
-				</div>
-			</div>
-		</>
+		<BrowserRouter>
+			<Row>
+				<Col sm={12}>
+					<Navbar className="navbrContainer" bg="dark" variant="dark">
+						<Link to="/">Search for Jobs</Link>
+						<Link to="/user">User</Link>
+						<Form inline className="searchContainer" onSubmit={submitHandler}>
+							<FormControl
+								className="mr-sm-4"
+								type="text"
+								placeholder="Search"
+								onSubmit={(e) => {
+									setSearchVal(e.target.value);
+								}}
+							/>
+							<Button type="submit">Submit</Button>
+						</Form>
+					</Navbar>
+				</Col>
+			</Row>
+			<Routes>
+				<Route exact path="/" element={<AllContents jobs={jobList} />} />
+				<Route path="/users" element={<User />} />
+			</Routes>
+		</BrowserRouter>
 	);
 }

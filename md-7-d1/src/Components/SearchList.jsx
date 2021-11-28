@@ -1,34 +1,37 @@
 import { Card } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 
-export default function SearchList({ job }) {
-	const [jobList, setJobList] = useState([]);
+export default function SearchList(jobList) {
 	const [isLoading, setIsLoading] = useState(true);
+	const [listJob, setListJob] = useState([]);
+	const [selection, setSelection] = useState(null);
 
-	const getjobs = async () => {
-		try {
-			let resp = await fetch(
-				'https://strive-jobs-api.herokuapp.com/jobs?limit=10',
-			);
-			if (resp.ok) {
-				const res = await resp.json();
-				setJobList(res.data);
-				setIsLoading(false);
-			}
-		} catch (error) {
-			console.log(error);
-		}
+	const changeJob = (job) => ({
+		setSelection: job,
+	});
+
+	const getJob = async (e) => {
+		setListJob(jobList.jobs.jobs);
+		setIsLoading(false);
 	};
 
 	useEffect(() => {
-		getjobs();
-	}, []);
-
+		getJob();
+	}, [changeJob()]);
 	return (
 		<>
-			{!isLoading &&
-				jobList.map((job) => (
-					<Card key={job._id} className="search-list">
+			{console.log(isLoading, listJob)}
+			{!isLoading ? (
+				listJob.map((job) => (
+					<Card
+						key={job._id}
+						onClick={() => changeJob(job)}
+						className={
+							selection?._id === job._id
+								? 'border-thick search-list'
+								: 'search-list'
+						}
+					>
 						<Card.Body>
 							<Card.Title> Title - {job.title}</Card.Title>
 							<Card.Text>Job Type - {job.job_type}</Card.Text>
@@ -42,7 +45,10 @@ export default function SearchList({ job }) {
 							</Card.Link>
 						</Card.Body>
 					</Card>
-				))}
+				))
+			) : (
+				<h3>job loading</h3>
+			)}
 		</>
 	);
 }

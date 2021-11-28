@@ -30,3 +30,6 @@
 	width: 100%;
 	margin: 10px 10px 10px 10px;
 }
+.border-thick {
+	border-width: 3px;
+}
