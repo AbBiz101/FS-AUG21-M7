@@ -19,10 +19,8 @@ export default function App() {
 					`${searchVal}` +
 					'&limit=5',
 			);
-
 			if (resp.ok) {
 				const res = await resp.json();
-				console.log('INSIDE RESP.OK submithandler')
 				setJobList(res.data);
 				setIsLoading(false);
 			} else {
@@ -38,10 +36,8 @@ export default function App() {
 			let resp = await fetch(
 				'https://strive-jobs-api.herokuapp.com/jobs?limit=10&skip=10',
 			);
-
 			if (resp.ok) {
 				const res = await resp.json();
-				console.log('INSIDE RESP.OK getJob');
 				setJobList(res.data);
 				setIsLoading(false);
 			} else {
@@ -65,6 +61,7 @@ export default function App() {
 					<Navbar className="navbrContainer" bg="dark" variant="dark">
 						<Link to="/">Search for Jobs</Link>
 						<Link to="/user">User</Link>
+						<User />
 						<Form inline className="searchContainer" onSubmit={submitHandler}>
 							<FormControl
 								className="mr-sm-4"

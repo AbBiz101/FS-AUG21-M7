@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
+
 const mapStateToProps = (state) => ({
 	cartLength: state.cart.content.length,
 	userName: state.user.name,
