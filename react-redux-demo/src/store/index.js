@@ -4,7 +4,8 @@ import mainReducer from '../reducer/index';
 export const initialState = {
 	cart: { content: [] },
 	user: {
-		name:'',
+		name: '',
+		isLoading: false,
 	},
 	error: '',
 	product: [],

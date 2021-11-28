@@ -1,6 +1,16 @@
+import { connect } from 'react-redux';
+import { applyJob } from '../action/index';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 
-export default function Detail({ selectedJob }) {
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = (dispatch) => ({
+	applyjob: (job) => {
+		dispatch(applyJob(job));
+	},
+});
+
+function Detail({ selectedJob }, applyjob) {
 	return (
 		<Card className="text-center">
 			{selectedJob ? (
@@ -20,7 +30,9 @@ export default function Detail({ selectedJob }) {
 							{selectedJob.publication_date}--
 							{selectedJob.candidate_required_location}
 						</Card.Text>
-						<Button variant="primary">Apply</Button>
+						<Button onClick={() => applyjob(selectedJob)} variant="primary">
+							Apply
+						</Button>
 					</Card.Body>
 				</>
 			) : (
@@ -33,3 +45,4 @@ export default function Detail({ selectedJob }) {
 		</Card>
 	);
 }
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);

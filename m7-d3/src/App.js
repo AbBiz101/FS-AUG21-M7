@@ -61,7 +61,6 @@ export default function App() {
 					<Navbar className="navbrContainer" bg="dark" variant="dark">
 						<Link to="/">Search for Jobs</Link>
 						<Link to="/user">User</Link>
-						<User />
 						<Form inline className="searchContainer" onSubmit={submitHandler}>
 							<FormControl
 								className="mr-sm-4"

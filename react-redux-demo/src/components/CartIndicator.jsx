@@ -10,8 +10,8 @@ const mapStateToProps = (state) => ({
 	userName: state.user.name,
 });
 const mapDispatchToProps = (dispatch) => ({
-	addUserName: (username) => {
-		dispatch(addUserName(username));
+	addUserName: (name) => {
+		dispatch(addUserName(name));
 	},
 });
 
@@ -34,7 +34,7 @@ const CartIndicator = ({ cartLength, userName, addUserName }) => {
 								className="mb-2"
 								id="inlineFormInput"
 								placeholder="User Name"
-								onSubmit={(e) => setUsername(e.target.value)}
+								onChange={(e) => setUsername(e.target.value)}
 							/>
 						</Col>
 
