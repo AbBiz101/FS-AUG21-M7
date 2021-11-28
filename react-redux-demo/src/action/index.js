@@ -25,13 +25,18 @@ export const getAllBooks = () => {
 					type: 'GET_BOOKS',
 					payload: data,
 				});
+				setTimeout(() => {
+					dispatch({ type: 'TOGGLE_LOADER', payload: false });
+				}, 1100);
 			} else {
 				console.log('Error fetching.');
 				dispatch({ type: 'GET_BOOKS_ERROR' });
+				dispatch({ type: 'TOGGLE_LOADER', payload: false });
 			}
 		} catch (error) {
 			console.log(error);
 			dispatch({ type: 'GET_BOOKS_ERROR' });
+			dispatch({ type: 'TOGGLE_LOADER', payload: false });
 		}
 	};
 };

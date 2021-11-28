@@ -13,7 +13,7 @@ export const initialState = {
 	books: {
 		stock: [],
 		isError: false,
-		isLoading: false,
+		isLoading: true,
 	},
 };
 

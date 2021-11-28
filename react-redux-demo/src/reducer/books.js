@@ -6,10 +6,11 @@ const booksReducer = (state = initialState.books, action) => {
 			return { ...state, stock: action.payload };
 		case 'GET_BOOKS_ERROR':
 			return { ...state, isError: true };
+		case 'TOGGLE_LOADER':
+			return { ...state, isLoading: action.payload };
 		default:
 			return state;
 	}
 };
 
 export default booksReducer;
-
