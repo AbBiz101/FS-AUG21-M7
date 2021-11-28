@@ -3,7 +3,7 @@ import { Component } from 'react';
 import BookDetail from './BookDetail';
 import { connect } from 'react-redux';
 import { getAllBooks } from '../action';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Alert } from 'react-bootstrap';
 
 const mapStateToProps = (state) => ({
 	bookInStock: state.books.stock,
@@ -28,7 +28,9 @@ class BookStore extends Component {
 		return (
 			<Row>
 				{this.props.bookError ? (
-					<div>ERROR WHILE FETCHING</div>
+					<Alert md={9} variant="danger">
+						This is a fetching error. Checks the endpoint!
+					</Alert>
 				) : (
 					<>
 						<Col md={4}>
