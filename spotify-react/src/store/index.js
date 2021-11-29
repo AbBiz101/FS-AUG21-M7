@@ -3,6 +3,7 @@ import {
 	allSongsReducer,
 	likedSongReducer,
 	searchSongReducer,
+	singleAlbumReducer,
 } from '../reducer';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 
@@ -12,14 +13,17 @@ export const initialState = {
 			rockSongs: [],
 			popSongs: [],
 			hipHopSongs: [],
-			isLoading:true
+			isLoading: true,
 		},
-		isError: false,
+		isLoading: true,
+	},
+	singleAlbum: {
+		album: {},
+		tracks: [],
 		isLoading: true,
 	},
 	search: {
 		searchSong: [],
-		isError: false,
 		isLoading: true,
 	},
 	likedSong: { songs: [] },
@@ -29,6 +33,7 @@ const bigReducer = combineReducers({
 	allAlbums: allSongsReducer,
 	likedSong: likedSongReducer,
 	search: searchSongReducer,
+	singleAlbum: singleAlbumReducer,
 });
 
 const configStore = createStore(

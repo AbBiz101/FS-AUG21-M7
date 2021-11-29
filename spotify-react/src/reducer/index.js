@@ -31,10 +31,10 @@ export const allSongsReducer = (state = initialState.allAlbums, action) => {
 				...state,
 				Category: { ...state.Category, hipHopSongs: action.payload },
 			};
-		case 'LOADING_ALBUM"':
+		case 'LOADING_ALBUM':
 			return {
 				...state,
-				Category: { ...state.Category, isLoading: action.payload },
+				Category: { ...state.Category, isLoading: false },
 			};
 		default:
 			return state;
@@ -43,6 +43,34 @@ export const allSongsReducer = (state = initialState.allAlbums, action) => {
 
 export const searchSongReducer = (state = initialState.likedSong, action) => {
 	switch (action.type) {
+		case 'SEARCH_SONG':
+			return { ...state, searchSong: action.payload };
+		case 'SEARCH_LOADING':
+			return { ...state, isLoading: action.payload };
+		default:
+			return state;
+	}
+};
+export const singleAlbumReducer = (
+	state = initialState.singleAlbum,
+	action,
+) => {
+	switch (action.type) {
+		case 'GET_ALL_INFO':
+			return {
+				...state,
+				album: action.payload,
+			};
+		case 'GET_ALL_SONGS':
+			return {
+				...state,
+				tracks: action.payload,
+			};
+		case 'LOAD_ALL_SONGS':
+			return {
+				...state,
+				isLoading: action.payload,
+			};
 		default:
 			return state;
 	}
