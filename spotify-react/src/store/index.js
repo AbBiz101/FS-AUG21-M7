@@ -22,6 +22,11 @@ export const initialState = {
 		tracks: [],
 		isLoading: true,
 	},
+	singleArtist: {
+		album: {},
+		tracks: [],
+		isLoading: true,
+	},
 	search: {
 		searchSong: [],
 		isLoading: true,

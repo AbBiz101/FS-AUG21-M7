@@ -51,6 +51,7 @@ export const searchSongReducer = (state = initialState.likedSong, action) => {
 			return state;
 	}
 };
+
 export const singleAlbumReducer = (
 	state = initialState.singleAlbum,
 	action,

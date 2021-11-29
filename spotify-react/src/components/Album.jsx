@@ -27,7 +27,7 @@ class Album extends React.Component {
 		return (
 			<div className="col-12 col-md-9 offset-md-3 mainPage">
 				{console.log(this.props.isLoading, this.props.tracks, this.props.album)}
-				{!this.props.isLoading ? (
+				{this.props.isLoading ? (
 					<Spinner
 						animation="border"
 						role="status"
@@ -43,7 +43,7 @@ class Album extends React.Component {
 					</Spinner>
 				) : (
 					<>
-						{/* <Row className="mb-3">
+						<Row className="mb-3">
 							<div className="col-9 col-lg-11 mainLinks d-none d-md-flex">
 								<div>TRENDING</div>
 								<div>PODCAST</div>
@@ -90,7 +90,7 @@ class Album extends React.Component {
 									</div>
 								</Row>
 							</div>
-						</Row> */}
+						</Row>
 					</>
 				)}
 			</div>
