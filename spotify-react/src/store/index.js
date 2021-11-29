@@ -1,15 +1,34 @@
-import thunk from 'react-thunk';
-import { allSongsReducer, likedSongReducer } from '../reducer';
+import thunk from 'redux-thunk';
+import {
+	allSongsReducer,
+	likedSongReducer,
+	searchSongReducer,
+} from '../reducer';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 
 export const initialState = {
-	allSongs: { songs: [] },
-	likedSong: { song: [] },
+	allAlbums: {
+		Category: {
+			rockSongs: [],
+			popSongs: [],
+			hipHopSongs: [],
+			isLoading:true
+		},
+		isError: false,
+		isLoading: true,
+	},
+	search: {
+		searchSong: [],
+		isError: false,
+		isLoading: true,
+	},
+	likedSong: { songs: [] },
 };
 
 const bigReducer = combineReducers({
-	allSongs: allSongsReducer,
+	allAlbums: allSongsReducer,
 	likedSong: likedSongReducer,
+	search: searchSongReducer,
 });
 
 const configStore = createStore(
