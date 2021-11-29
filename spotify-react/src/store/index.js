@@ -4,6 +4,7 @@ import {
 	likedSongReducer,
 	searchSongReducer,
 	singleAlbumReducer,
+	singleArtistReducer,
 } from '../reducer';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 
@@ -23,7 +24,7 @@ export const initialState = {
 		isLoading: true,
 	},
 	singleArtist: {
-		album: {},
+		artist: {},
 		tracks: [],
 		isLoading: true,
 	},
@@ -35,10 +36,11 @@ export const initialState = {
 };
 
 const bigReducer = combineReducers({
+	search: searchSongReducer,
 	allAlbums: allSongsReducer,
 	likedSong: likedSongReducer,
-	search: searchSongReducer,
 	singleAlbum: singleAlbumReducer,
+	singleArtist: singleArtistReducer,
 });
 
 const configStore = createStore(

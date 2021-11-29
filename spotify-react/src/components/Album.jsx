@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Album extends React.Component {
 	componentDidMount() {
+		console.log(this.props.tracks, this.props.album);
 		let id = this.props.match.params.id;
 		this.props.fetchSongs(id);
 	}
@@ -26,7 +27,6 @@ class Album extends React.Component {
 	render() {
 		return (
 			<div className="col-12 col-md-9 offset-md-3 mainPage">
-				{console.log(this.props.isLoading, this.props.tracks, this.props.album)}
 				{this.props.isLoading ? (
 					<Spinner
 						animation="border"

@@ -52,6 +52,32 @@ export const searchSongReducer = (state = initialState.likedSong, action) => {
 	}
 };
 
+export const singleArtistReducer = (
+	state = initialState.singleArtist,
+	action,
+) => {
+	switch (action.type) {
+		case 'SINGLE_ARTIST_ALBUMS':
+			return {
+				...state,
+				artist: action.payload,
+			};
+		case 'SINGLE_ARTIST_SONG':
+			return {
+				...state,
+				tracks: action.payload,
+			};
+
+		case 'SINGLE_ARTIST_LOAD':
+			return {
+				...state,
+				isLoading: action.payload,
+			};
+		default:
+			return state;
+	}
+};
+
 export const singleAlbumReducer = (
 	state = initialState.singleAlbum,
 	action,
