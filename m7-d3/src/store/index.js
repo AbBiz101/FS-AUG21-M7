@@ -2,11 +2,21 @@ import { createStore } from 'redux';
 import { mainReducer } from '../reducer/index';
 
 export const initialState = {
-	jobList: [],
+	jobList: { appliedJob: [] },
+
+	jobFatched: {
+		list: [],
+		isError: false,
+		isLoading: true,
+	},
+	jobSearched: {
+		list: [],
+		isError: false,
+		isLoading: true,
+	},
 	user: {
 		name: '',
 	},
-	
 };
 
 const configStore = createStore(
