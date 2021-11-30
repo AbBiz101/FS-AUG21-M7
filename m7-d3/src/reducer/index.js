@@ -9,7 +9,7 @@ export const userReducer = (state = initialState.user, action) => {
 		case 'REMOVE_JOB':
 			return {
 				...state,
-				jobList: state.appliedJob.filter((e, i) => i !== action.payload),
+				jobList: state.appliedJob.filter((i) => i !== action.payload),
 			};
 		default:
 			return state;

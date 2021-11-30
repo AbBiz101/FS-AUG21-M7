@@ -7,7 +7,7 @@ import {
 } from '../reducer/index';
 
 export const initialState = {
-	jobList: { list: [], isError: false, isLoading: true },
+	jobList: { list: [], selectedJob: [], isError: false, isLoading: true },
 
 	jobSearched: {
 		searchList: [],

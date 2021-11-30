@@ -3,7 +3,7 @@ export const addUserName = (name) => ({
 	payload: name,
 });
 
-export const applyJob = (job) => ({
+export const appliedJob = (job) => ({
 	type: 'APPLY_JOB',
 	payload: job,
 });

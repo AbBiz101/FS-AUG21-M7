@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import { FaTrash } from 'react-icons/fa';
-import { Col, Row } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import { removeFromCart } from '../action/index';
+import { Col, Row,Button } from 'react-bootstrap';
 
 const mapStateToProps = (state) => ({
 	cart: state.cart.content,
