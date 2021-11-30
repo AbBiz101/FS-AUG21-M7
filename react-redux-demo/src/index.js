@@ -3,13 +3,16 @@ import App from './App';
 import '../src/style/index.css';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import configStore from '../src/store/index';
+import configStore, { persistor } from '../src/store/index';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
+import { PersistGate } from 'redux-persist/integration/react';
 
 ReactDOM.render(
 	<Provider store={configStore}>
-		<App />
+		<PersistGate persistor={persistor} loading={<div>LOADING...</div>}>
+			<App />
+		</PersistGate>
 	</Provider>,
 	document.getElementById('root'),
 );

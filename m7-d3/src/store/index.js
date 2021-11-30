@@ -5,6 +5,8 @@ import {
 	jobSearchedReducer,
 	jobListReducer,
 } from '../reducer/index';
+import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from 'redux-persist';
 
 export const initialState = {
 	jobList: { list: [], selectedJob: [], isError: false, isLoading: true },
@@ -20,6 +22,7 @@ export const initialState = {
 		appliedJob: [],
 	},
 };
+const persistConfig = { key: 'root', storage: storage };
 
 const bigReducer = combineReducers({
 	user: userReducer,
@@ -27,8 +30,10 @@ const bigReducer = combineReducers({
 	jobList: jobListReducer,
 });
 
+const persistBigReducer = persistReducer(persistConfig, bigReducer);
+
 const configStore = createStore(
-	bigReducer,
+	persistBigReducer,
 	initialState,
 	compose(
 		applyMiddleware(thunk),
@@ -36,4 +41,7 @@ const configStore = createStore(
 			window.__REDUX_DEVTOOLS_EXTENSION__(),
 	),
 );
+
+export const persistor = persistStore(configStore);
+
 export default configStore;
