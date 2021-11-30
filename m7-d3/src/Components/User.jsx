@@ -10,9 +10,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function User({ appliedJob, jobRemove }) {
-	{
-		console.log(appliedJob);
-	}
 	return (
 		<Row>
 			<Col sm={12}>
