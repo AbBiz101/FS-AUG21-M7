@@ -1,58 +1,38 @@
 import './App.css';
 import User from './Components/User';
+import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { addUserName, getJob, searchJob } from './action/index';
 import AllContents from './Components/AllContents';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Row, Button, Navbar, Col, Form, FormControl } from 'react-bootstrap';
+import { BiBriefcaseAlt2 } from 'react-icons/bi';
+const mapStateToProps = (state) => ({
+	jobList: state.jobList.list,
+	isError: state.jobList.isError,
+	isLoading: state.jobList.isLoading,
+	searchList: state.jobSearched.searchList,
+	searchLoading: state.jobSearched.searchLoading,
+	userName: state.user.name,
+});
+const mapDispatchTOProps = (dispatch) => ({
+	addUserName: (name) => {
+		dispatch(addUserName(name));
+	},
+	getJob: () => {
+		dispatch(getJob());
+	},
+});
 
-export default function App() {
-	const [jobList, setJobList] = useState([]); // hold all jobs
+const App = ({ jobList, getJob, isLoading, userName, addUserName }) => {
 	const [searchVal, setSearchVal] = useState(''); //hold search input value
-	const [isLoading, setIsLoading] = useState(true); // hold load state
 	const [selectedJob, setSelectedJob] = useState(null); // job selected to display details
-
-	const submitHandler = async (e) => {
-		e.preventDefault();
-		try {
-			let resp = await fetch(
-				'https://strive-jobs-api.herokuapp.com/jobs?search=' +
-					`${searchVal}` +
-					'&limit=5',
-			);
-			if (resp.ok) {
-				const res = await resp.json();
-				setJobList(res.data);
-				setIsLoading(false);
-			} else {
-				console.log('error fetching');
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const getJob = async (e) => {
-		try {
-			let resp = await fetch(
-				'https://strive-jobs-api.herokuapp.com/jobs?limit=10&skip=10',
-			);
-			if (resp.ok) {
-				const res = await resp.json();
-				setJobList(res.data);
-				setIsLoading(false);
-			} else {
-				console.log('error fetching');
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
+	const [username, setUsername] = useState('');
+	searchJob(searchVal);
 	console.log(isLoading, jobList);
-
 	useEffect(() => {
 		getJob();
-	}, []);
+	}, [searchJob(searchVal)]);
 
 	return (
 		<BrowserRouter>
@@ -60,8 +40,39 @@ export default function App() {
 				<Col sm={12}>
 					<Navbar className="navbrContainer" bg="dark" variant="dark">
 						<Link to="/">Search for Jobs</Link>
-						<Link to="/user">User</Link>
-						<Form inline className="searchContainer" onSubmit={submitHandler}>
+
+						{userName ? (
+							<Link to="/user">
+								<span className="ml-2">
+									<BiBriefcaseAlt2 size={30} />
+								</span>
+							</Link>
+						) : (
+							<Form>
+								<Row className="align-items-center">
+									<Col xs="auto">
+										<Form.Control
+											className="mb-2"
+											id="inlineFormInput"
+											placeholder="User Name"
+											onChange={(e) => setUsername(e.target.value)}
+										/>
+									</Col>
+
+									<Col xs="auto">
+										<Button
+											type="submit"
+											className="mb-2"
+											onClick={() => addUserName(username)}
+										>
+											Login
+										</Button>
+									</Col>
+								</Row>
+							</Form>
+						)}
+
+						<Form inline className="searchContainer" onSubmit={searchJob}>
 							<FormControl
 								className="mr-sm-4"
 								type="text"
@@ -92,4 +103,6 @@ export default function App() {
 			</Routes>
 		</BrowserRouter>
 	);
-}
+};
+
+export default connect(mapStateToProps, mapDispatchTOProps)(App);

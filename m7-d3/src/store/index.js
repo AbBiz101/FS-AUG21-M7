@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import {
 	userReducer,
 	jobSearchedReducer,
@@ -9,9 +10,9 @@ export const initialState = {
 	jobList: { list: [], isError: false, isLoading: true },
 
 	jobSearched: {
-		list: [],
-		isError: false,
-		isLoading: true,
+		searchList: [],
+		searchError: false,
+		searchLoading: true,
 	},
 
 	user: {

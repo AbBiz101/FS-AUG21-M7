@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { applyJob } from '../action/index';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = (state) => ({ userName: state.user.name });
 
 const mapDispatchToProps = (dispatch) => ({
 	applyjob: (job) => {
@@ -10,7 +10,7 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 });
 
-function Detail({ selectedJob }, applyjob) {
+function Detail({ userName, selectedJob }, applyjob) {
 	return (
 		<Card className="text-center">
 			{selectedJob ? (
@@ -31,7 +31,11 @@ function Detail({ selectedJob }, applyjob) {
 							{selectedJob.candidate_required_location}
 						</Card.Text>
 						<Button onClick={() => applyjob(selectedJob)} variant="primary">
-							Apply
+							{userName ? (
+								<Button color="primary">Apply</Button>
+							) : (
+								<h4>Log in required!</h4>
+							)}
 						</Button>
 					</Card.Body>
 				</>
