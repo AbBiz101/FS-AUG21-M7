@@ -5,21 +5,24 @@ import { BiBriefcaseAlt2 } from 'react-icons/bi';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 import { addUserName, getJob, searchJob } from '../action/index';
 
-
-
 function UserIcon() {
 	const userName = useSelector((state) => state.user.name);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [username, setUsername] = useState('');
+	const jobLength = useSelector((state) => state.user.appliedJob.length);
+
 	return (
 		<div>
 			{userName ? (
 				<span onClick={() => navigate('/user')} className="ml-2">
-					<BiBriefcaseAlt2
-						size={30}
-						style={{ color: 'blue', cursor: 'pointer' }}
-					/>
+					<h5 style={{ color: 'blue' }}>
+						{jobLength}
+						<BiBriefcaseAlt2
+							size={30}
+							style={{ color: 'blue', cursor: 'pointer' }}
+						/>
+					</h5>
 				</span>
 			) : (
 				<Form>
@@ -49,4 +52,4 @@ function UserIcon() {
 	);
 }
 
-export default UserIcon
+export default UserIcon;
