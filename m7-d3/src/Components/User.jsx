@@ -1,15 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeJob } from '../action/index';
 import { Card, Col, Row, Button } from 'react-bootstrap';
 
-const mapStateToProps = (state) => ({ appliedJob: state.user.appliedJob });
-
-const mapDispatchToProps = (dispatch) => ({
-	jobRemove: (job) => dispatch(removeJob(job)),
-});
-
-function User({ appliedJob, jobRemove }) {
+function User() {
+	const appliedJob = useSelector((state) => state.user.appliedJob);
+	const dispatch = useDispatch();
 	return (
 		<Row>
 			<Col sm={12}>
@@ -26,7 +22,7 @@ function User({ appliedJob, jobRemove }) {
 									<Button
 										variant="danger"
 										onClick={() => {
-											jobRemove(i);
+											dispatch(removeJob(i));
 										}}
 									>
 										Remove
@@ -41,4 +37,4 @@ function User({ appliedJob, jobRemove }) {
 	);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(User);
+export default User;

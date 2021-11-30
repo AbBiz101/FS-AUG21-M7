@@ -1,27 +1,15 @@
 import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BiBriefcaseAlt2 } from 'react-icons/bi';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 import { addUserName, getJob, searchJob } from '../action/index';
 
-const mapStateToProps = (state) => ({
-	userName: state.user.name,
-	jobList: state.jobList.list,
-	searchList: state.jobSearched.searchList,
-	searchLoading: state.jobSearched.searchLoading,
-});
 
-const mapDispatchTOProps = (dispatch) => ({
-	addUserName: (name) => {
-		dispatch(addUserName(name));
-	},
-	getJob: () => {
-		dispatch(getJob());
-	},
-});
 
-function UserIcon({ userName, addUserName }) {
+function UserIcon() {
+	const userName = useSelector((state) => state.user.name);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [username, setUsername] = useState('');
 	return (
@@ -49,7 +37,7 @@ function UserIcon({ userName, addUserName }) {
 							<Button
 								type="submit"
 								className="mb-2"
-								onClick={() => addUserName(username)}
+								onClick={() => dispatch(addUserName(username))}
 							>
 								Login
 							</Button>
@@ -61,4 +49,4 @@ function UserIcon({ userName, addUserName }) {
 	);
 }
 
-export default connect(mapStateToProps, mapDispatchTOProps)(UserIcon);
+export default UserIcon
