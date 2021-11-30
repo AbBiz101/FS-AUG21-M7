@@ -1,24 +1,44 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { removeJob } from '../action/index';
+import { Card, Col, Row, Button } from 'react-bootstrap';
 
-export default function User(jobList) {
+const mapStateToProps = (state) => ({ appliedJob: state.user.appliedJob });
+
+const mapDispatchToProps = (dispatch) => ({
+	jobRemove: (job) => dispatch(removeJob(job)),
+});
+
+function User({ appliedJob, jobRemove }) {
 	return (
-		<div>
-			{console.log(jobList.jobs)}
-			{jobList.jobs.map((job) => (
-				<Card key={job._id}>
-					<Card.Body>
-						<Card.Title> Title - {job.title}</Card.Title>
-						<Card.Text>Job Type - {job.job_type}</Card.Text>
-						<Card.Text>Category - {job.category}</Card.Text>
-						<Card.Text>Location - {job.candidate_required_location}</Card.Text>
-						<Card.Text>Publication Date - {job.publication_date}</Card.Text>
-						<Card.Link href="https://remotive.io/remote-jobs/all-others/technical-delivery-manager-890461">
-							Company Name - {job.company_name}
-						</Card.Link>
-					</Card.Body>
-				</Card>
-			))}
-		</div>
+		<Row>
+			<Col sm={12}>
+				<ul style={{ listStyle: 'none' }}>
+					{appliedJob.map((job, i) => (
+						<li key={i}>
+							<Card style={{ width: '18rem', margin: '10px' }}>
+								<Card.Body>
+									<Card.Title>{job.title}</Card.Title>
+									<Card.Subtitle className="mb-2 text-muted">
+										{job.category}
+									</Card.Subtitle>
+									<Card.Text>{job.title}</Card.Text>
+									<Button
+										variant="danger"
+										onClick={() => {
+											jobRemove(i);
+										}}
+									>
+										Remove
+									</Button>
+								</Card.Body>
+							</Card>
+						</li>
+					))}
+				</ul>
+			</Col>
+		</Row>
 	);
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);
