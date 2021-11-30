@@ -1,83 +1,68 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import { addToCar } from '../action/index';
+import Button from 'react-bootstrap/Button';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const mapStateToProps = (state) => ({
-	userName: state.user.name,
-});
-const mapDispatchToProps = (dispatch) => ({
-	addToCart: (bookToAdd) => {
-		dispatch(addToCar(bookToAdd));
-	},
-});
+function BookDetail({ bookSelected }) {
+	const userName = useSelector((state) => state.user.name);
+	const dispatch = useDispatch();
+	const [book, setBook] = useState(null);
 
-class BookDetail extends Component {
-	state = {
-		book: null,
-	};
+	useEffect(() => {
+		setBook(bookSelected);
+	}, [bookSelected]);
 
-	componentDidUpdate(prevProps) {
-		if (prevProps.bookSelected !== this.props.bookSelected) {
-			this.setState({
-				book: this.props.bookSelected,
-			});
-		}
-	}
-
-	render() {
-		return (
-			<div className="mt-3">
-				{this.state.book ? (
-					<>
-						<Row>
-							<Col sm={12}>
-								<h1>{this.state.book.title}</h1>
-							</Col>
-						</Row>
-						<Row className="mt-3">
-							<Col sm={4}>
-								<div className="mt-3">
-									<img
-										className="book-cover"
-										src={this.state.book.imageUrl}
-										alt="book selected"
-									/>
-								</div>
-							</Col>
-							<Col sm={8}>
-								<p>
-									<span className="font-weight-bold">Description:</span>
-									{this.state.book.description}
-								</p>
-								<p>
-									<span className="font-weight-bold">Price:</span>
-									{this.state.book.price}
-								</p>
-								{this.props.userName ? (
-									<Button
-										color="primary"
-										onClick={() => this.props.addToCart(this.state.book)}
-									>
-										ADD TO CART
-									</Button>
-								) : (
-									<h4>Log in to add to cart!</h4>
-								)}
-							</Col>
-						</Row>
-					</>
-				) : (
+	return (
+		<div className="mt-3">
+			{book ? (
+				<>
 					<Row>
 						<Col sm={12}>
-							<h3>Please select a book!</h3>
+							<h1>{book.title}</h1>
 						</Col>
 					</Row>
-				)}
-			</div>
-		);
-	}
+					<Row className="mt-3">
+						<Col sm={4}>
+							<div className="mt-3">
+								<img
+									className="book-cover"
+									src={book.imageUrl}
+									alt="book selected"
+								/>
+							</div>
+						</Col>
+						<Col sm={8}>
+							<p>
+								<span className="font-weight-bold">Description:</span>
+								{book.description}
+							</p>
+							<p>
+								<span className="font-weight-bold">Price:</span>
+								{book.price}
+							</p>
+							{userName ? (
+								<Button
+									color="primary"
+									onClick={() => dispatch(addToCar(book))}
+								>
+									ADD TO CART
+								</Button>
+							) : (
+								<h4>Log in to add to cart!</h4>
+							)}
+						</Col>
+					</Row>
+				</>
+			) : (
+				<Row>
+					<Col sm={12}>
+						<h3>Please select a book!</h3>
+					</Col>
+				</Row>
+			)}
+		</div>
+	);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookDetail);
+export default BookDetail;

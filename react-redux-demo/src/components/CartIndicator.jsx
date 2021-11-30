@@ -1,23 +1,16 @@
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addUserName } from '../action/index';
 import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Button, Form, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
 
-const mapStateToProps = (state) => ({
-	cartLength: state.cart.content.length,
-	userName: state.user.name,
-});
-const mapDispatchToProps = (dispatch) => ({
-	addUserName: (name) => {
-		dispatch(addUserName(name));
-	},
-});
-
-const CartIndicator = ({ cartLength, userName, addUserName }) => {
+const CartIndicator = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [username, setUsername] = useState('');
+	const userName = useSelector((state) => state.user.name);
+	const cartLength = useSelector((state) => state.cart.content.length);
 
 	return (
 		<div className="ml-auto mt-2">
@@ -42,7 +35,7 @@ const CartIndicator = ({ cartLength, userName, addUserName }) => {
 							<Button
 								type="submit"
 								className="mb-2"
-								onClick={() => addUserName(username)}
+								onClick={() => dispatch(addUserName(username))}
 							>
 								Login
 							</Button>
@@ -54,4 +47,4 @@ const CartIndicator = ({ cartLength, userName, addUserName }) => {
 	);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartIndicator);
+export default CartIndicator;
