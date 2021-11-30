@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { likeSongs } from '../action/index';
 
 const mapStateToProps = (state) => ({
-	likedSongs: state.likedSong.songs,
+	likedElements: state.likedSong.elements,
 });
 const mapDispatchToProps = (dispatch) => ({
 	likeDislike: (track, action) => {
@@ -12,21 +12,15 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 });
 
-const Song = ({ track, likedSongs, likeDislike }) => {
+const Song = ({ track, likedElements, likeDislike }) => {
 	const [isLiked, setIsLiked] = useState(false);
 
-	//check if the music is in likedSongs or noteRole
-	//if is return true
-	//if not return false
-
 	const isALikedSong = () => {
-		//check if the music is in that array
-		// track._id is inside of that array
-		//is liked
-		//setIsLiked(true)
-		if (likedSongs.filter((i) => i.id === track.id).length < 1) {
+		if (likedElements.filter((i) => i.id === track.id).length < 1) {
+			likeDislike(track, 'LIKE');
 			setIsLiked(true);
 		} else {
+			likeDislike(track, 'DISLIKE');
 			setIsLiked(false);
 		}
 	};
@@ -35,30 +29,10 @@ const Song = ({ track, likedSongs, likeDislike }) => {
 		isALikedSong();
 	}, []);
 
-	const likeToggle = (track) => {
-		if (likedSongs.filter((i) => i.id === track.id).length < 1) {
-			likeDislike(track, 'LIKE_SONGS');
-		} else {
-			likeDislike(track, 'DISLIKE_SONGS');
-		}
-	};
-
-	/*
-	first an array with liked songs
-	Then for each song you need to check if they are in that array or not
-	if they are show filled heart
-	if not show empty heart then
-
-	then
-	empty heart on click push the song to the array
-	filled heart on click remove the song from that array
-
-	*/
-
 	return (
 		<div className="py-3 trackHover">
 			<span
-				onClick={() => likeToggle(track)}
+				onClick={() => isALikedSong(track)}
 				className="card-title trackHover px-3"
 				style={{ color: 'white' }}
 			>

@@ -32,7 +32,7 @@ export const initialState = {
 		searchSong: [],
 		isLoading: true,
 	},
-	likedSong: { songs: [] },
+	likedSong: { elements: [] },
 };
 
 const bigReducer = combineReducers({

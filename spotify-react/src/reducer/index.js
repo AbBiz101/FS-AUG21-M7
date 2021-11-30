@@ -2,12 +2,12 @@ import { initialState } from '../store';
 
 export const likedSongReducer = (state = initialState.likedSong, action) => {
 	switch (action.type) {
-		case 'LIKE_SONGS':
-			return { ...state, songs: [...state.songs, action.payload] };
-		case 'DISLIKE_SONGS':
+		case 'LIKE':
+			return { ...state, elements: [...state.elements, action.payload] };
+		case 'DISLIKE':
 			return {
 				...state,
-				song: state.songs.filter((i) => i._id !== action.payload),
+				elements: [state.elements.filter((i) => i._id !== action.payload)],
 			};
 		default:
 			return state;
