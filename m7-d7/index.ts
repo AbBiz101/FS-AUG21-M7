@@ -13,14 +13,14 @@ let val5: stringOrNum;
 val5 = 'lol';
 val5 = 5;
 const x = 4;
-// *************************************************************//
+// *********************************************** **************//
 let arr: string[] = [val1, val4];
 
 let arr2: (string | number | boolean)[] = ['lol', 2, false, 2, 'lol'];
 
 let arr3: [string, number, boolean] = ['lol', 2, false]; //tuple fixed length and fixed type
 
-// *************************************************************//
+// *********************************************** **************//
 let obj: {
 	name: string;
 	age: number;
@@ -30,7 +30,7 @@ let obj: {
 	};
 } = { name: 'A', age: 1, education: { BS: 'b', MS: 'c' } };
 
-// *************************************************************//
+// ********************************************** ***************//
 function sum(a: number, b: number, x?: number) {
 	return a + b;
 }
