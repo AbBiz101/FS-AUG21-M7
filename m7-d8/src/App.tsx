@@ -6,7 +6,7 @@ import { useEffect, FormEvent, useState } from 'react';
 import { Nav, Form, Button, Navbar, FormControl } from 'react-bootstrap';
 
 interface SongProp {
-	album: {};
+	album: { cover_medium: string };
 	id: number;
 	readable: true;
 	title: string;
@@ -28,7 +28,7 @@ export default function App() {
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 	};
-	const [songs, setSongs] = useState<[]>([]);
+	const [songs, setSongs] = useState<SongProp[]>([]);
 
 	const getSong = async (search: string) => {
 		try {
@@ -37,8 +37,7 @@ export default function App() {
 				'X-RapidAPI-Key': '222902beabmshb95a65b737cead6p1f3ac9jsn23ced94c0d20',
 			});
 			let response = await fetch(
-				'https://striveschool-api.herokuapp.com/api/deezer/search?q=eminem' +
-					search,
+				'https://striveschool-api.herokuapp.com/api/deezer/search?q=' + search,
 				{
 					method: 'GET',
 					headers,
@@ -59,7 +58,7 @@ export default function App() {
 
 	useEffect(() => {
 		getSong(search);
-	}, []);
+	}, [search]);
 
 	return (
 		<>
@@ -72,12 +71,9 @@ export default function App() {
 					<FormControl
 						type="text"
 						onChange={(e) => setSearch(e.target.value)}
-						placeholder="Search"
+						placeholder="TYPE THE ARTIST NAME!!!!"
 						className="mr-sm-2"
 					/>
-					<Button type="submit" variant="outline-info">
-						Search
-					</Button>
 				</Form>
 			</Navbar>
 			<div className="App">
@@ -85,7 +81,10 @@ export default function App() {
 					<Detail />
 				</div>
 				<div className="main-bar">
-					{songs.map((song) => { <Album key={song.id} song={song} />})}
+					{songs &&
+						songs.map((song) => {
+							return <Album key={song.id} song={song} />;
+						})}
 				</div>
 			</div>
 		</>

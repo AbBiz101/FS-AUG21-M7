@@ -3,7 +3,9 @@ import { ListGroup } from 'react-bootstrap';
 export default function Detail() {
 	return (
 		<ListGroup>
-			<ListGroup.Item variant="dark">Dark</ListGroup.Item>
+			<ListGroup.Item className="mb-2" variant="dark">
+				Song list
+			</ListGroup.Item>
 		</ListGroup>
 	);
 }
