@@ -1,15 +1,29 @@
 import { Card } from 'react-bootstrap';
 
-export default function album({song}) {
+interface SongPro {
+	album: {};
+	id: number;
+	readable: true;
+	title: string;
+	title_short: string;
+	title_version: string;
+	link: string;
+	duration: number;
+	rank: number;
+	explicit_lyrics: true;
+	explicit_content_lyrics: number;
+	explicit_content_cover: number;
+	preview: string;
+	md5_image: string;
+}
+
+export default function Album({song}: SongPro) {
 	return (
 		<Card style={{ margin: '20px', width: '18rem' }}>
-			<Card.Img variant="top" src="holder.js/100px180" />
+			<Card.Img variant="top" src={song.album.cover_medium} />
 			<Card.Body>
-				<Card.Title>Card Title</Card.Title>
-				<Card.Text>
-					Some quick example text to build on the card title and make up the
-					bulk of the card's content.
-				</Card.Text>
+				<Card.Title>{song.title_short}</Card.Title>
+				<Card.Text>{song.title}</Card.Text>
 			</Card.Body>
 		</Card>
 	);

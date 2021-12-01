@@ -4,7 +4,25 @@ import Detail from './components/Detail';
 import { BsMusicNoteList } from 'react-icons/bs';
 import { useEffect, FormEvent, useState } from 'react';
 import { Nav, Form, Button, Navbar, FormControl } from 'react-bootstrap';
-function App() {
+
+interface SongProp {
+	album: {};
+	id: number;
+	readable: true;
+	title: string;
+	title_short: string;
+	title_version: string;
+	link: string;
+	duration: number;
+	rank: number;
+	explicit_lyrics: true;
+	explicit_content_lyrics: number;
+	explicit_content_cover: number;
+	preview: string;
+	md5_image: string;
+}
+
+export default function App() {
 	const [search, setSearch] = useState('');
 
 	const handleSubmit = (e: FormEvent) => {
@@ -67,15 +85,9 @@ function App() {
 					<Detail />
 				</div>
 				<div className="main-bar">
-					{songs.map((song) => {
-						<Album song={song} />;
-					})}
+					{songs.map((song) => { <Album key={song.id} song={song} />})}
 				</div>
 			</div>
 		</>
 	);
-}
-export default App;
-
-{
 }
