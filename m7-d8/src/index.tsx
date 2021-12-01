@@ -1,23 +1,14 @@
 import './index.css';
-import './style.css';
 import App from './App';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
-import configureStore, { persistor } from './store/index';
-import { PersistGate } from 'redux-persist/integration/react';
+// import configureStore, { persistor } from './store/index';
+// import { PersistGate } from 'redux-persist/integration/react';
+// <Provider store={configureStore}>
+// 	<PersistGate persistor={persistor} loading={null}></PersistGate>
+// </Provider>;
 
-ReactDOM.render(
-	<Provider store={configureStore}>
-		<PersistGate persistor={persistor} loading={null}>
-			<App />
-		</PersistGate>
-	</Provider>,
-	document.getElementById('root'),
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+ReactDOM.render(<App />, document.getElementById('root'));
 reportWebVitals();
