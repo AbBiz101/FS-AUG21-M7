@@ -1,5 +1,9 @@
-import React from 'react';
+import { ListGroup } from 'react-bootstrap';
 
 export default function Detail() {
-	return <div></div>;
+	return (
+		<ListGroup>
+			<ListGroup.Item variant="dark">Dark</ListGroup.Item>
+		</ListGroup>
+	);
 }
