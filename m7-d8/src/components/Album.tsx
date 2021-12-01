@@ -22,7 +22,7 @@ interface SongPro {
 
 export default function Album({ song }: SongPro) {
 	return (
-		<Card style={{ margin: '20px', width: '18rem' }}>
+		<Card style={{ margin: '20px', width: '16rem' }}>
 			<Card.Img variant="top" src={song.album.cover_medium} />
 			<Card.Body>
 				<Card.Title>{song.title_short}</Card.Title>

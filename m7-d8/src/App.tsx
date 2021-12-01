@@ -62,7 +62,7 @@ export default function App() {
 
 	return (
 		<>
-			<Navbar bg="dark" variant="dark">
+			<Navbar className="App" bg="dark" variant="dark">
 				<Navbar.Brand href="#home">
 					<BsMusicNoteList />
 				</Navbar.Brand>
@@ -71,15 +71,16 @@ export default function App() {
 					<FormControl
 						type="text"
 						onChange={(e) => setSearch(e.target.value)}
-						placeholder="TYPE THE ARTIST NAME!!!!"
+						placeholder="TYPE THE ARTIST NAME"
 						className="mr-sm-2"
 					/>
+					<Button variant="outline-info">Search</Button>
 				</Form>
 			</Navbar>
 			<div className="App">
-				<div className="side-bar">
+				{/* <div className="side-bar">
 					<Detail />
-				</div>
+				</div> */}
 				<div className="main-bar">
 					{songs &&
 						songs.map((song) => {
