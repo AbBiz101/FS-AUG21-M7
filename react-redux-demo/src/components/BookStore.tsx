@@ -4,11 +4,14 @@ import { getAllBooks } from '../action';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Col, Row, Alert, Spinner } from 'react-bootstrap';
+import { ReduxStore } from '../types/ReduxStore';
+import { Book } from '../types/Book';
+
 
 function BookStore() {
-	const bookInStock = useSelector((state) => state.books.stock);
-	const bookError = useSelector((state) => state.books.isError);
-	const booksLoading = useSelector((state) => state.books.isLoading);
+	const bookInStock = useSelector((state: ReduxStore) => state.books.stock);
+	const bookError = useSelector((state: ReduxStore) => state.books.isError);
+	const booksLoading = useSelector((state: ReduxStore) => state.books.loading);
 	const dispatch = useDispatch();
 	const [bookSelected, setBookSelected] = useState(null);
 
@@ -16,7 +19,7 @@ function BookStore() {
 		dispatch(getAllBooks());
 	}, []);
 
-	const changeBook = (book) => setBookSelected(book);
+	const changeBook = (book: Book) => setBookSelected(book: Book);
 
 	return (
 		<Row>

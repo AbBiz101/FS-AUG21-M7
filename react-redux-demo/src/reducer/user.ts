@@ -1,6 +1,7 @@
-import { initialState } from '../store/';
+import { AnyAction } from 'redux';
+import { initialState } from '../store';
 
-const userReducer = (state = initialState.user, action) => {
+const userReducer = (state = initialState.user, action: AnyAction) => {
 	switch (action.type) {
 		case 'ADD_USER_NAME':
 			return {

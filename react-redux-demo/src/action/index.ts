@@ -1,20 +1,23 @@
-export const removeFromCart = (bookIndex) => ({
+import { Dispatch } from 'redux';
+import { Book } from '../types/Book';
+
+export const removeFromCart = (bookIndex: number) => ({
 	type: 'REMOVE_BOOK_FROM_CART',
 	payload: bookIndex,
 });
 
-export const addToCar = (bookToAdd) => ({
+export const addToCar = (bookToAdd: Book) => ({
 	type: 'ADD_TO_CART',
 	payload: bookToAdd,
 });
 
-export const addUserName = (name) => ({
+export const addUserName = (name: string) => ({
 	type: 'ADD_USER_NAME',
 	payload: name,
 });
 
 export const getAllBooks = () => {
-	return async (dispatch) => {
+	return async (dispatch: Dispatch) => {
 		try {
 			const resp = await fetch(
 				'https://striveschool-api.herokuapp.com/food-books',

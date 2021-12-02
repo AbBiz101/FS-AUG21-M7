@@ -1,6 +1,7 @@
-import { initialState } from '../store/';
+import { AnyAction } from 'redux';
+import { initialState } from '../store';
 
-const booksReducer = (state = initialState.books, action) => {
+const booksReducer = (state = initialState.books, action:AnyAction) => {
 	switch (action.type) {
 		case 'GET_BOOKS':
 			return { ...state, stock: action.payload };

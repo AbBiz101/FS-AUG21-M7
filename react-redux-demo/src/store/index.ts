@@ -5,17 +5,17 @@ import booksReducer from '../reducer/books';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
+import { ReduxStore } from '../types/ReduxStore';
 
-export const initialState = {
-	cart: { content: [] },
+export const initialState: ReduxStore = {
+	cart: { products: [] },
 	user: {
-		name: '',
-		isLoading: false,
+		firstName: '',
 	},
 	books: {
 		stock: [],
 		isError: false,
-		isLoading: true,
+		loading: true,
 	},
 };
 
@@ -34,8 +34,8 @@ const configStore = createStore(
 	initialState,
 	compose(
 		applyMiddleware(thunk),
-		window.__REDUX_DEVTOOLS_EXTENSION__ &&
-			window.__REDUX_DEVTOOLS_EXTENSION__(),
+		(window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+			(window as any).__REDUX_DEVTOOLS_EXTENSION__(),
 	),
 );
 
