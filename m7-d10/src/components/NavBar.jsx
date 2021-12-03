@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar, FormControl, Nav, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { addCityName } from '../action/index';
 
 export default function NavBar() {
 	const [cityName, setCityName] = useState('');
+	const dispatch = useDispatch();
+
 	return (
 		<Navbar bg="dark" variant="dark">
 			<Navbar.Brand href="/home">Today</Navbar.Brand>
@@ -24,7 +28,7 @@ export default function NavBar() {
 			<Form inline>
 				<FormControl
 					onChange={(e) => {
-						setCityName(e.target.value);
+						dispatch(addCityName(e.target.value));
 					}}
 					type="text"
 					placeholder="City Name"
