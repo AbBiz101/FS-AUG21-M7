@@ -23,17 +23,12 @@ code {
 	color: #fff;
 	overflow: hidden;
 	position: relative;
+}
 
-	small {
-		color: inherit;
-		font-size: 50%;
-	}
-	ul.forecast > li {
-		border-top: 1px solid #fff;
-	}
-	.temperature {
-		& > span {
-			font-size: 2em;
-		}
-	}
+small {
+	color: inherit;
+	font-size: 50%;
+}
+ul.forecast > li {
+	border-top: 1px solid #fff;
 }
