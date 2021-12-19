@@ -13,22 +13,22 @@ export default function App() {
 	return 
 		<BrowserRouter>
       
-      <MyNavbar />
+         <MyNavbar/>
      
-		  <Routes>
-        <Route path="/" component = {< Home />} />
+		   // <Routes>
+         //    <Route path="/" component = {< Home />} />
           
-        <Route path = "/profile" component = {<h1> PROFILE PAGE </h1>} / >
+         //     <Route path = "/profile" component = {<h1> PROFILE PAGE </h1>} / >
           
-        <Route path="/reservations" component = {< Booking />} />
+         //    <Route path="/reservations" component = {< Booking />} />
           
-        <Route path = "/menu" component = {< Menu />} />
+         //    <Route path = "/menu" component = {< Menu />} />
           
-        <Route path = "/details/:pastaId" component = {< Details />} />
+         //     <Route path = "/details/:pastaId" component = {< Details />} />
+
+         //    <Route path = "*" component = {< NotFound />} />
           
-        <Route path = "*" component = {< NotFound />} />
-          
-      < /Routes>
+         // < /Routes>
     
 		</BrowserRouter>
 	

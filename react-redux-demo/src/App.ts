@@ -9,7 +9,7 @@ const App = () => (
 	<BrowserRouter>
 		<Container>
 			<Row>
-				<Col sm={12} className="text-center background-div">
+				<Col  className="text-center background-div">
 					<Link to="/">
 						<h1>Strivazon Book Store</h1>
 					</Link>
