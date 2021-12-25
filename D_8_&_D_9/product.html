@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+			integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+			crossorigin="anonymous"
+		/>
+		<title>Product Detail</title>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand">Car-store</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarNavAltMarkup"
+				aria-controls="navbarNavAltMarkup"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-link" href="./index1.html"
+						>Home <span class="sr-only">(current)</span></a
+					>
+					<a class="nav-link" href="./index2.html">back-office</a>
+				</div>
+			</div>
+		</nav>
+
+		<form onsubmit="editdoc(event)" class="mt-5 col-10 offset-2">
+			<div class="col-md-4 mb-3">
+				<label for="validationDefault01">Prodact ID</label>
+				<input type="none" class="form-control" id="form-id" readonly />
+			</div>
+			<div class="form-row">
+				<div class="col-md-4 mb-3">
+					<label for="validationDefault01">Prodact Name</label>
+					<input
+						type="text"
+						class="form-control"
+						id="form-prodact"
+						placeholder="Prodact-Name"
+					/>
+				</div>
+				<div class="col-md-4 mb-3">
+					<label for="validationDefault03">Brand</label>
+					<input
+						type="text"
+						class="form-control"
+						id="form-brand"
+						placeholder="brand"
+					/>
+				</div>
+			</div>
+			<div class="mb-0 form-row">
+				<div class="col-md-3 mb-3">
+					<label for="validationDefault04">Image</label>
+					<input type="text" class="form-control" id="form-image" />
+				</div>
+				<div class="col-md-2 mb-3">
+					<label for="validationDefault05">Price</label>
+					<input
+						type="text"
+						class="form-control"
+						id="form-Price"
+						placeholder="10.00€"
+					/>
+				</div>
+				<div class="col-md-3 mb-3">
+					<label for="validationDefault02"> Description</label>
+					<textarea
+						placeholder="description"
+						class="form-control"
+						id="form-description"
+						cols="30"
+						rows="3"
+					></textarea>
+				</div>
+			</div>
+			<div class="col-8 d-flex justify-content-between">
+				<button class="btn btn-success btn-edit" type="submit">Edit</button>
+				<button class="btn btn-danger btn-delet" type="button">Delete</button>
+			</div>
+		</form>
+
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+			crossorigin="anonymous"
+		></script>
+		<script>
+			document
+				.querySelector('.btn-delet')
+				.addEventListener('click', function () {
+					const urlvalue = new URLSearchParams(window.location.search).get(
+						'id',
+					);
+					const url =
+						'https://striveschool-api.herokuapp.com/api/product/' + urlvalue;
+					let dletbtn = document.querySelector('.btn-delet');
+					fetch(url, {
+						methode: 'DELETE',
+						headers: {
+							Authorization:
+								'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRiMjE0ZDRiYjUzZDAwMTViMTllZDMiLCJpYXQiOjE2NDAwNjAwNzIsImV4cCI6MTY0MTI2OTY3Mn0.AauZJ_0k0s-p850hrihlcaw26ZvJ0yRqdLlemun2bkc',
+						},
+					})
+						.then((res) => console.log(res.json()))
+						.then((data) => {
+							alert('Product successfully deleted!!');
+							window.location.assign('/product.html');
+						})
+						.catch((err) => console.log(err));
+				});
+
+			window.onload = () => {
+				const urlvalue = new URLSearchParams(window.location.search).get('id');
+				const url =
+					'https://striveschool-api.herokuapp.com/api/product/' + urlvalue;
+				let idval = document.querySelector('#form-id');
+				idval.value = urlvalue;
+				let nameval = document.querySelector('#form-prodact');
+				let descriptionval = document.querySelector('#form-description');
+				let brandval = document.querySelector('#form-brand');
+				let imageUrlval = document.querySelector('#form-image');
+				let priceval = document.querySelector('#form-Price');
+
+				function resp() {
+					fetch(url, {
+						methode: 'Get',
+						headers: {
+							Authorization:
+								'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRiMjE0ZDRiYjUzZDAwMTViMTllZDMiLCJpYXQiOjE2MzIzMTM2NzcsImV4cCI6MTYzMzUyMzI3N30.l4N27o8c_KxofK9baoVPZVl8m7XImIMYTEzx6-ecOf8',
+						},
+					})
+						.then((res) => res.json())
+						.then((data) => {
+							let { name, description, brand, imageUrl, price } = data;
+							nameval.value = name;
+							descriptionval.value = description;
+							brandval.value = brand;
+							imageUrlval.value = imageUrl;
+							priceval.value = price;
+						});
+				}
+
+				const editdoc = async (event) => {
+					const edtbtn = document.querySelector('.btn-edit').value;
+					console.log(idval);
+					const url =
+						'https://striveschool-api.herokuapp.com/api/product/' + value;
+
+					event.preventDefault();
+					const doc = {
+						name: document.querySelector('#form-prodact').value,
+						description: document.querySelector('#form-description').value,
+						brand: document.querySelector('#form-brand').value,
+						imageUrl: document.querySelector('#form-image').value,
+						price: document.querySelector('#form-Price').value,
+					};
+					try {
+						const resp = await fetch(url, {
+							method: 'PUT',
+							body: JSON.stringify(doc),
+							headers: {
+								Authorization:
+									'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTRiMjE0ZDRiYjUzZDAwMTViMTllZDMiLCJpYXQiOjE2MzIzMTM2NzcsImV4cCI6MTYzMzUyMzI3N30.l4N27o8c_KxofK9baoVPZVl8m7XImIMYTEzx6-ecOf8',
+								'Content-Type': 'application/json',
+							},
+						});
+						if (resp.ok) {
+							alert('Product successfully edited!!');
+							window.location.assign('/index2.html');
+						} else {
+							alert('Product deleting failed!!');
+						}
+					} catch (err) {
+						console.log(err);
+					}
+				};
+				resp();
+			};
+		</script>
+	</body>
+</html>

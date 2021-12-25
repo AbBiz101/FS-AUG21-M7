@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Jekyll v3.8.5" />
+    <title>Book Hello.com</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/4.3/examples/album/"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .jumbotron {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        margin-bottom: 0;
+        background-color: #fff;
+      }
+      @media (min-width: 768px) {
+        .jumbotron {
+          padding-top: 6rem;
+          padding-bottom: 6rem;
+        }
+      }
+
+      .jumbotron p:last-child {
+        margin-bottom: 0;
+      }
+
+      .jumbotron-heading {
+        font-weight: 300;
+      }
+
+      .jumbotron .container {
+        max-width: 40rem;
+      }
+
+      footer {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+
+      footer p {
+        margin-bottom: 0.25rem;
+      }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .img-resized {
+        height: 200px;
+        object-fit: cover;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main role="main">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Book World</h1>
+          <p class="lead text-muted">
+            This page will dynamically load Books from the web, and display
+            them in a cool way!
+          </p>
+          <p>
+            <input type="search" placeholder="search...">
+            <button class="btn btn-primary my-2" onclick="putImage()">Books</button>
+          </p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row" id="album-row">
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+      </div>
+    </footer>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+			const newApi = (type) => {
+				return fetch(
+					'https://striveschool-api.herokuapp.com/books/search?query=' +
+						type.toLowerCase()
+				);
+			};
+
+			const loadbook = function () {
+				const query = document.querySelector('input[type=search]').value;
+
+				fetch(`https://striveschool-api.herokuapp.com/books`)
+					.then((responce) => responce.json())
+					.then((data) => {
+                        const row = document.getElementById('album-row')
+						const blank = document.querySelector('.row');
+                        console.log(data);
+						for (let i = 0; i < data.length; i++) {
+							const { asin, title, img, price, category } = data[i];
+							const book = document.createElement('div');
+							book.innerHTML = `
+            <div class="card mb-4 shadow-sm" id="card">
+                <img src="${img}" class="img-fluid">
+                <div class="card-body">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                  <h5 class="card-title">Title: ${title}</h5>
+                                                    <p class="card-text1">Category: ${category}</p>
+                                                    <p class="card-text2">Price:${price}€</p>
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        Add to cart
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-sm hide-me btn-outline-secondary"
+                        onclick="hide(event)"
+                      >
+                        Skip
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+							blank.appendChild(book);
+						}
+					});
+			};
+
+			const hide = (val) => {
+				val.target.closest('.book-col').remove();
+			};
+			const style = (val) => {
+				val.target.closest('.newcard').classList.toggle('newclass');
+			};
+			window.onload = () => {
+				loadbook();
+			};
+		</script>
+  </body>
+</html>
